@@ -2,23 +2,18 @@ import cv2
 import os
 from ultralytics import YOLO
 
-# ===============================
-# PATHS
-# ===============================
+#Dataset PATHS
 input_path = "pose_project/data1"
 output_folder = "output"
 os.makedirs(output_folder, exist_ok=True)
 
-# ===============================
+
 # LOAD YOLOv8 POSE MODEL
-# ===============================
 model = YOLO("yolov8n-pose.pt")
 
-# ===============================
 # RESIZE SETTINGS
-# ===============================
-MAX_WIDTH = 800   # maximum width of output frame
-MAX_HEIGHT = 600  # maximum height of output frame
+MAX_WIDTH = 800   
+MAX_HEIGHT = 600  
 
 def resize_frame(frame, max_w=MAX_WIDTH, max_h=MAX_HEIGHT):
     h, w = frame.shape[:2]
@@ -27,9 +22,7 @@ def resize_frame(frame, max_w=MAX_WIDTH, max_h=MAX_HEIGHT):
         frame = cv2.resize(frame, (int(w*scale), int(h*scale)))
     return frame
 
-# ===============================
 # PROCESS VIDEO
-# ===============================
 for filename in os.listdir(input_path):
     if filename.lower().endswith((".mp4", ".avi", ".mov", ".mkv")):
         video_path = os.path.join(input_path, filename)
@@ -69,3 +62,4 @@ for filename in os.listdir(input_path):
 
 cv2.destroyAllWindows()
 print("YOLOv8 Pose detection completed.")
+
